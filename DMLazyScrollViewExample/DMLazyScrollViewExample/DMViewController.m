@@ -8,6 +8,7 @@
 
 #import "DMViewController.h"
 #import "DMLazyScrollView.h"
+#import "DMAppDelegate.h"
 
 #define ARC4RANDOM_MAX	0x100000000
 
@@ -34,7 +35,7 @@
     CGRect rect = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-50);
     lazyScrollView = [[DMLazyScrollView alloc] initWithFrame:rect];
     [lazyScrollView setEnableCircularScroll:YES];
-    [lazyScrollView setAutoPlay:YES];
+    [lazyScrollView setAutoPlay:NO];
     
     __weak __typeof(&*self)weakSelf = self;
     lazyScrollView.dataSource = ^(NSUInteger index) {
@@ -48,16 +49,20 @@
     UIButton*btn_moveForward = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [btn_moveForward setTitle:@"MOVE BY 3" forState:UIControlStateNormal];
     [btn_moveForward addTarget:self action:@selector(btn_moveForward:) forControlEvents:UIControlEventTouchUpInside];
-    [btn_moveForward setFrame:CGRectMake(self.view.frame.size.width/2.0f,lazyScrollView.frame.origin.y+lazyScrollView.frame.size.height+5, 320/2.0f,40)];
+    [btn_moveForward setFrame:CGRectMake(self.view.frame.size.width/2.0f,self.view.frame.size.height - 30.0, self.view.frame.size.width/2.0f,30)];
     [self.view addSubview:btn_moveForward];
+    btn_moveForward.layer.borderWidth = 0.5;
+    btn_moveForward.layer.borderColor = [UIColor blackColor].CGColor;
     
     // MOVE BY -3 BACKWARD
     UIButton*btn_moveBackward = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [btn_moveBackward setTitle:@"MOVE BY -3" forState:UIControlStateNormal];
     [btn_moveBackward addTarget:self action:@selector(btn_moveBack:) forControlEvents:UIControlEventTouchUpInside];
-    [btn_moveBackward setFrame:CGRectMake(0,lazyScrollView.frame.origin.y+lazyScrollView.frame.size.height+5, 320/2.0f,40)];
+    [btn_moveBackward setFrame:CGRectMake(0,self.view.frame.size.height - 30.0, self.view.frame.size.width/2.0f,30)];
     [self.view addSubview:btn_moveBackward];
 	// Do any additional setup after loading the view, typically from a nib.
+    btn_moveBackward.layer.borderWidth = 0.5;
+    btn_moveBackward.layer.borderColor = [UIColor blackColor].CGColor;
 }
 
 - (void) btn_moveBack:(id) sender {
@@ -71,7 +76,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-    
     
 }
 
@@ -87,7 +91,7 @@
         
         UILabel* label = [[UILabel alloc] initWithFrame:contr.view.bounds];
         label.backgroundColor = [UIColor clearColor];
-        label.text = [NSString stringWithFormat:@"%d",index];
+        label.text = [NSString stringWithFormat:@"%@", @(index)];
         label.textAlignment = NSTextAlignmentCenter;
         label.font = [UIFont boldSystemFontOfSize:50];
         [contr.view addSubview:label];

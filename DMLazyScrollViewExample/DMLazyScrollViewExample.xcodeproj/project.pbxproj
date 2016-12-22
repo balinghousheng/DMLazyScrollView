@@ -161,6 +161,11 @@
 				CLASSPREFIX = DM;
 				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = daniele;
+				TargetAttributes = {
+					64E7A27D1660D05F00DB5D9E = {
+						DevelopmentTeam = QTR3NT98RR;
+					};
+				};
 			};
 			buildConfigurationList = 64E7A2781660D05F00DB5D9E /* Build configuration list for PBXProject "DMLazyScrollViewExample" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -292,6 +297,7 @@
 		64E7A2A61660D06000DB5D9E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = QTR3NT98RR;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DMLazyScrollViewExample/DMLazyScrollViewExample-Prefix.pch";
 				INFOPLIST_FILE = "DMLazyScrollViewExample/DMLazyScrollViewExample-Info.plist";
@@ -303,6 +309,7 @@
 		64E7A2A71660D06000DB5D9E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = QTR3NT98RR;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DMLazyScrollViewExample/DMLazyScrollViewExample-Prefix.pch";
 				INFOPLIST_FILE = "DMLazyScrollViewExample/DMLazyScrollViewExample-Info.plist";
@@ -330,6 +337,7 @@
 				64E7A2A71660D06000DB5D9E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

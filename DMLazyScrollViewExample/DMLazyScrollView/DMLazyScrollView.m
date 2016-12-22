@@ -23,6 +23,7 @@ enum {
     BOOL            circularScrollEnabled;
 }
 @property (nonatomic, strong) NSTimer* timer_autoPlay;
+@property (nonatomic, assign) DMLazyScrollViewScrollDirection proposedScroll;
 @end
 
 @implementation DMLazyScrollView
@@ -215,7 +216,7 @@ enum {
     DMLazyScrollViewScrollDirection proposedScroll = (offset <= (size*2) ?
                                                       DMLazyScrollViewScrollDirectionBackward : // we're moving back
                                                       DMLazyScrollViewScrollDirectionForward); // we're moving forward
-
+    self.proposedScroll = proposedScroll; // 自定义属性
     // you can go back if circular mode is enabled or your current page is not the first page
     BOOL canScrollBackward = (circularScrollEnabled || (!circularScrollEnabled && self.currentPage != 0));
     // you can go forward if circular mode is enabled and current page is not the last page
@@ -402,5 +403,20 @@ enum {
         [controlDelegate lazyScrollViewDidEndDecelerating:self atPageIndex:self.currentPage];
 }
 
+/**
+ 处理与系统pop手势冲突
+ 
+ @param gestureRecognizer <#gestureRecognizer description#>
+ @param otherGestureRecognizer <#otherGestureRecognizer description#>
+ @return <#return value description#>
+ */
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    if (_proposedScroll == DMLazyScrollViewScrollDirectionBackward && self.currentPage == 0) {
+        if ([otherGestureRecognizer.delegate isKindOfClass:NSClassFromString(@"_FDFullscreenPopGestureRecognizerDelegate")]) {
+            return YES;
+        }
+    }
+    return NO;
+}
 
 @end
